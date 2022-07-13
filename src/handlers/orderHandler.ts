@@ -8,10 +8,8 @@ const index = async (_req: Request, res: Response): Promise<void> => {
 	try {
 		const orders = await store.index()
 		res.status(200).json(orders)
-		return
 	} catch (err) {
 		res.status(401).json(`Could not get orders - ${err}`)
-		return
 	}
 }
 
@@ -19,10 +17,8 @@ const show = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const order = await store.show(req.params.userid as unknown as number)
 		res.status(200).json(order)
-		return
 	} catch (err) {
 		res.status(401).json(`Could not find order ${req.params.userid} - ${err}`)
-		return
 	}
 }
 
@@ -34,10 +30,8 @@ const create = async (req: Request, res: Response): Promise<void> => {
 		}
 		const newOrder = await store.create(order)
 		res.status(200).json(newOrder)
-		return
 	} catch (err) {
 		res.status(401).json(`Could not add new order - ${err}`)
-		return
 	}
 }
 
@@ -45,10 +39,8 @@ const destroy = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const deleted = await store.destroy(req.body.id as unknown as number)
 		res.status(200).json(deleted)
-		return
 	} catch (err) {
 		res.status(401).json(`Could not delete product ${req.body.id} - ${err}`)
-		return
 	}
 }
 
@@ -56,10 +48,8 @@ const showItem = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const orders = await store.showItem(req.params.orderid as unknown as number)
 		res.status(200).json(orders)
-		return
 	} catch (err) {
 		res.status(401).json(`Could not find order ${req.params.orderid} - ${err}`)
-		return
 	}
 }
 
@@ -74,10 +64,8 @@ const createItem = async (req: Request, res: Response): Promise<void> => {
 
 		const newItem = await store.createItem(orderItem)
 		res.status(200).json(newItem)
-		return
 	} catch (err) {
 		res.status(401).json(`Could not add new item - ${err}`)
-		return
 	}
 }
 
@@ -85,10 +73,8 @@ const destroyItem = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const deleted = await store.destroyItem(req.body.id as unknown as number)
 		res.status(200).json(deleted)
-		return
 	} catch (err) {
 		res.status(401).json(`Could not delete item ${req.body.id} - ${err}`)
-		return
 	}
 }
 

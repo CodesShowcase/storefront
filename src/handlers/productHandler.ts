@@ -8,10 +8,8 @@ const index = async (_req: Request, res: Response): Promise<void> => {
 	try {
 		const products = await store.index()
 		res.status(200).json(products)
-		return
 	} catch (err) {
 		res.status(401).json(`Could not get products - ${err}`)
-		return
 	}
 }
 
@@ -20,10 +18,8 @@ const show = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const product = await store.show(req.params.id as unknown as number)
 		res.status(200).json(product)
-		return
 	} catch (err) {
 		res.status(401).json(`Could not find product ${req.params.id} - ${err}`)
-		return
 	}
 }
 
@@ -37,10 +33,8 @@ const create = async (req: Request, res: Response): Promise<void> => {
 		}
 		const newProduct = await store.create(product)
 		res.status(200).json(newProduct)
-		return
 	} catch (err) {
 		res.status(401).json(`Could not add new product ${req.body.name} - ${err}`)
-		return
 	}
 }
 
@@ -48,10 +42,8 @@ const destroy = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const deleted = await store.destroy(req.body.id as unknown as number)
 		res.status(200).json(deleted)
-		return
 	} catch (err) {
 		res.status(401).json(`Could not delete product ${req.body.id} - ${err}`)
-		return
 	}
 }
 
