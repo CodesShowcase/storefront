@@ -71,7 +71,7 @@ Then you should be able to access the API via localhost:3000
 - /orders/items [!]: DELETE will delete specific items
 
 - /products: GET will return all products
-- /products/:id: GET will return a specific product
+- /products/\:id: GET will return a specific product
 - /products [!]: POST will add a new product
 - /products [!]: DELETE will delete a specific product
 
