@@ -41,9 +41,13 @@ Make sure you have Docker installed
 
 alternatively you can use a local PostgreSQL install
 
+Set up the databases
+
+=> yarn migrate-up
+
 Fire up your server
 
-=> yarn start
+=> yarn start or yarn watch
 
 Then you should be able to access the API via localhost:3000
 
