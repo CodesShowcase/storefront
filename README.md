@@ -62,23 +62,23 @@ Then you should be able to access the API via localhost:3000
 
 ### API Endpoints
 
-- /orders [!]: GET will return all orders
-- /orders/:userid [!]: GET will return all orders for a specific user
-- /orders [!]: POST will add a new order
-- /orders [!]: DELETE will delete a specific order
-- /orders/items/:orderid [!]: GET will return all items for a specific order
-- /orders/items [!]: POST will add a new order items to an order
-- /orders/items [!]: DELETE will delete specific items
+- "/orders" [!]: GET will return all orders
+- "/orders/:userid" [!]: GET will return all orders for a specific user
+- "/orders" [!]: POST will add a new order
+- "/orders" [!]: DELETE will delete a specific order
+- "/orders/items/:orderid" [!]: GET will return all items for a specific order
+- "/orders/items" [!]: POST will add a new order items to an order
+- "/orders/items" [!]: DELETE will delete specific items
 
-- /products: GET will return all products
-- /products/\:id: GET will return a specific product
-- /products [!]: POST will add a new product
-- /products [!]: DELETE will delete a specific product
+- "/products": GET will return all products
+- "/products/:id": GET will return a specific product
+- "/products" [!]: POST will add a new product
+- "/products" [!]: DELETE will delete a specific product
 
-- /users [!]: GET will return all users
-- /users/:id  [!]: GET will return a specific user
-- /users: POST will add a new user
-- /users [!]: DELETE will delete a specific user
-- /users/login [!]: POST will login a user
+- "/users" [!]: GET will return all users
+- "/users/:id"  [!]: GET will return a specific user
+- "/users": POST will add a new user
+- "/users" [!]: DELETE will delete a specific user
+- "/users/login" [!]: POST will login a user
 
 [!]: only possible with a valid token (created after creating a user or login)
