@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    volumes:
+      - './docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql'
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "storefront@storefront.com"
+      PGADMIN_DEFAULT_PASSWORD: "storefront"
+    ports:
+      - "12080:80"
+    volumes:
+      - 'postgres:/var/lib/pgadmin/data'
+    depends_on:
+      - db
+
+volumes:
+  postgres: #
