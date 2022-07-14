@@ -1,42 +1,87 @@
-# API Requirements
-The company stakeholders want to create an online storefront to showcase their great product ideas. Users need to be able to browse an index of all products, see the specifics of a single product, and add products to an order that they can view in a cart page. You have been tasked with building the API that will support this application, and your coworker is building the frontend.
-
-These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
+# API and Database Schema
+Here you will find an outline of the API Endpoints and the Database Schema
 
 ## API Endpoints
-#### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
 
-#### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- "/orders" [!]: GET will return all orders
+- "/orders/:userid" [!]: GET will return all orders for a specific user
+- "/orders" [!]: POST will add a new order
+- "/orders" [!]: DELETE will delete a specific order
+- "/orders/items/:orderid" [!]: GET will return all items for a specific order
+- "/orders/items" [!]: POST will add a new order items to an order
+- "/orders/items" [!]: DELETE will delete specific items
 
-#### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- "/products": GET will return all products
+- "/products/:id": GET will return a specific product
+- "/products" [!]: POST will add a new product
+- "/products" [!]: DELETE will delete a specific product
 
-## Data Shapes
-#### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+- "/users" [!]: GET will return all users
+- "/users/:id"  [!]: GET will return a specific user
+- "/users": POST will add a new user
+- "/users" [!]: DELETE will delete a specific user
+- "/users/login" [!]: POST will login a user
 
-#### User
-- id
-- firstName
-- lastName
-- password
+[!]: only possible with a valid token (created after creating a user or login)
 
-#### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+## Database Schema
 
+[!] The prepopulation is needed to satisfy the constraints in the tables.
+It can be safely altered or removed (if the constraints are fulfilled).
+
+- Table users
+
+id SERIAL PRIMARY KEY,
+firstname VARCHAR(100) NOT NULL,
+lastname VARCHAR(100) NOT NULL,
+username VARCHAR(100) NOT NULL UNIQUE,
+password VARCHAR(128) NOT NULL
+
+=> The table users is prepopulated with a dummy user
+firstname: 'First' / lastname: 'Dummy' / username: 'user' / password: 'password'
+
+- Table products
+
+id SERIAL PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+price decimal(12,2) NOT NULL,
+category_id INTEGER NOT NULL,
+CONSTRAINT fk_category FOREIGN KEY(category_id) REFERENCES categories(id)
+
+=> The table products is prepopulated with a dummy product
+name: 'Dummy Product' / price: '9.99' / category_id: 1
+
+=> category_id is a reference to the foreign key id from the table categories
+
+- Table categories
+! optional table - if not used category_id from products must be removed
+
+id SERIAL PRIMARY KEY,
+name VARCHAR(100) NOT NULL
+
+=> The table categories is prepopulated with dummy categories
+name: 'Vegetables' // name: 'Meat' // name: 'Fruits' // name: 'Deserts'
+
+- Table orders
+
+id SERIAL PRIMARY KEY,
+user_id INTEGER NOT NULL,
+status order_status NOT NULL,
+CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id)
+
+=> user_id is a reference to the foreign key id from the table users
+
+- Table order_items
+
+id SERIAL PRIMARY KEY,
+order_id INTEGER NOT NULL,
+product_id INTEGER NOT NULL,
+quantity INTEGER NOT NULL,
+CONSTRAINT fk_order FOREIGN KEY(order_id) REFERENCES orders(id),
+CONSTRAINT fk_product FOREIGN KEY(product_id) REFERENCES products(id)
+
+=> order_id is a reference to the foreign key id from the table orders
+=> product_id is a reference to the foreign key id from the table products
+
+This table is a one to many relationship (one order can have many order items) and
+a one to one relationship (one order item consists of a product with a given quantity)
