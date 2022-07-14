@@ -50,7 +50,7 @@ After this you have to run "yarn migrate-up" to populate the databases (see topi
 
 The server runs on port 3000 (usually localhost:3000), but first you must install all the required packages:
 
-=> Run yarn install
+=> yarn install
 
 Make sure you have Docker installed
 
