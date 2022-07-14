@@ -53,7 +53,7 @@ name: 'Dummy Product' / price: '9.99' / category_id: 1
 
 => category_id is a reference to the foreign key id from the table categories
 
-- Table categories
+- Table categories  
 ! optional table - if not used category_id from products must be removed
 
 id SERIAL PRIMARY KEY,  
