@@ -14,15 +14,15 @@ You need a server (PostgreSQL) with one database for developing and one for test
 
 - The whole project is basically configured via a .env file (which is not included) with the following settings:
 
-BCRYPT_SALT=storefront
-SALT_ROUNDS=10
-EXPRESS_PORT=3000
-JWT_SECRET=storefront
-POSTGRES_DB=storefront
-POSTGRES_DB_TEST=storefront_test
-POSTGRES_USER=storefront
-POSTGRES_PASSWORD=storefront
-POSTGRES_PORT=5432
+BCRYPT_SALT=storefront  
+SALT_ROUNDS=10  
+EXPRESS_PORT=3000  
+JWT_SECRET=storefront  
+POSTGRES_DB=storefront  
+POSTGRES_DB_TEST=storefront_test  
+POSTGRES_USER=storefront  
+POSTGRES_PASSWORD=storefront  
+POSTGRES_PORT=5432  
 
 But feel free to adjust them to your needs!
 
@@ -35,13 +35,13 @@ You can either use the docker-compose.yml in connection with the provided docker
 
 Alternatively you can also setup the databases yourself (e.g. you already have a local Postgres Server). In this case you need do the SQL queries yourself.
 
-Database:
+Database:  
 => CREATE DATABASE storefront; CREATE DATABASE storefront_test;
 
-User:
+User:  
 => CREATE USER storefront WITH ENCRYPTED PASSWORD 'storefront';
 
-Assign privileges:
+Assign privileges:  
 => GRANT ALL PRIVILEGES ON DATABASE storefront TO storefront; GRANT ALL PRIVILEGES ON DATABASE storefront_test TO storefront;
 
 After this you have to run "yarn migrate-up" to populate the databases (see topic server below).
@@ -106,29 +106,29 @@ Then you should be able to access the API via localhost:3000
 
 ### Database Schema
 
-[!] The prepopulation is needed to satisfy the constraints in the tables.
+[!] The prepopulation is needed to satisfy the constraints in the tables.  
 It can be safely altered or removed (if the constraints are fulfilled).
 
 - Table users
 
-id SERIAL PRIMARY KEY,
-firstname VARCHAR(100) NOT NULL,
-lastname VARCHAR(100) NOT NULL,
-username VARCHAR(100) NOT NULL UNIQUE,
-password VARCHAR(128) NOT NULL
+id SERIAL PRIMARY KEY,  
+firstname VARCHAR(100) NOT NULL,  
+lastname VARCHAR(100) NOT NULL,  
+username VARCHAR(100) NOT NULL UNIQUE,  
+password VARCHAR(128) NOT NULL  
 
-=> The table users is prepopulated with a dummy user
+=> The table users is prepopulated with a dummy user  
 firstname: 'First' / lastname: 'Dummy' / username: 'user' / password: 'password'
 
 - Table products
 
-id SERIAL PRIMARY KEY,
-name VARCHAR(100) NOT NULL,
-price decimal(12,2) NOT NULL,
-category_id INTEGER NOT NULL,
-CONSTRAINT fk_category FOREIGN KEY(category_id) REFERENCES categories(id)
+id SERIAL PRIMARY KEY,  
+name VARCHAR(100) NOT NULL,  
+price decimal(12,2) NOT NULL,  
+category_id INTEGER NOT NULL,  
+CONSTRAINT fk_category FOREIGN KEY(category_id) REFERENCES categories(id)  
 
-=> The table products is prepopulated with a dummy product
+=> The table products is prepopulated with a dummy product  
 name: 'Dummy Product' / price: '9.99' / category_id: 1
 
 => category_id is a reference to the foreign key id from the table categories
@@ -136,31 +136,31 @@ name: 'Dummy Product' / price: '9.99' / category_id: 1
 - Table categories
 ! optional table - if not used category_id from products must be removed
 
-id SERIAL PRIMARY KEY,
-name VARCHAR(100) NOT NULL
+id SERIAL PRIMARY KEY,  
+name VARCHAR(100) NOT NULL  
 
-=> The table categories is prepopulated with dummy categories
+=> The table categories is prepopulated with dummy categories  
 name: 'Vegetables' // name: 'Meat' // name: 'Fruits' // name: 'Deserts'
 
 - Table orders
 
-id SERIAL PRIMARY KEY,
-user_id INTEGER NOT NULL,
-status order_status NOT NULL,
-CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id)
+id SERIAL PRIMARY KEY,  
+user_id INTEGER NOT NULL,  
+status order_status NOT NULL,  
+CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id)  
 
 => user_id is a reference to the foreign key id from the table users
 
 - Table order_items
 
-id SERIAL PRIMARY KEY,
-order_id INTEGER NOT NULL,
-product_id INTEGER NOT NULL,
-quantity INTEGER NOT NULL,
-CONSTRAINT fk_order FOREIGN KEY(order_id) REFERENCES orders(id),
-CONSTRAINT fk_product FOREIGN KEY(product_id) REFERENCES products(id)
+id SERIAL PRIMARY KEY,  
+order_id INTEGER NOT NULL,  
+product_id INTEGER NOT NULL,  
+quantity INTEGER NOT NULL,  
+CONSTRAINT fk_order FOREIGN KEY(order_id) REFERENCES orders(id),  
+CONSTRAINT fk_product FOREIGN KEY(product_id) REFERENCES products(id)  
 
-=> order_id is a reference to the foreign key id from the table orders
+=> order_id is a reference to the foreign key id from the table orders  
 => product_id is a reference to the foreign key id from the table products
 
 This table is a one to many relationship (one order can have many order items) and
